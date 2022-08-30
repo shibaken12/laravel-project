@@ -9,14 +9,20 @@ use App\Item;
 
 class ItemController extends Controller
 {
-	public function index() {
+	public function index()
+	{
 		$item = Item::all();
 		//indexビューに$itemの値を渡す
-        return view('index', compact('item'));
+		return view('index', compact('item'));
 	}
 
-	public function detail(int $id) {
+	public function detail(int $id)
+	{
 		$detail = Item::find($id);
+
+		if ($detail == NULL) {
+			return redirect('/');
+		}
 		return view('item.detail', compact('detail', 'id'));
 	}
 }
