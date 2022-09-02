@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/home';
+    protected $redirectTo = '/admin/items_index';
 
     /**
      * Create a new controller instance.
@@ -57,11 +57,5 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         return redirect('/admin/login');  //変更
-
-        // $this->guard()->logout();
-
-        // $request->session()->invalidate();
-
-        // return $this->loggedOut($request) ?: redirect('/admin/login');
     }
 }

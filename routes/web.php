@@ -9,13 +9,13 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Auth::routes();
 
 //Userがログイン後認証していれば表示する画面へのルーティング
 Route::group(['middleware' => 'auth:user'], function () {
-    Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('/home', 'HomeController@index')->name('home');
 });
 
 //商品一覧を表示させるルーティング
@@ -27,15 +27,25 @@ Route::get('item/detail/{id}', 'ItemController@detail')->name('item.detail');
 
 //Adminが認証不要でアクセスできる画面へのルーティング
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', function () {
-        return redirect('/admin/home');
-    });
-    Route::get('login', 'Admin\LoginController@showLoginForm')->name('admin.login');
-    Route::post('login', 'Admin\LoginController@login');
+	Route::get('/', function () {
+		return redirect('/admin/login');
+	});
+	Route::get('login', 'Admin\LoginController@showLoginForm')->name('admin.login');
+	Route::post('login', 'Admin\LoginController@login');
 });
 
 //Adminがログイン後アクセスできる画面へのルーティング
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
-    Route::post('logout', 'Admin\LoginController@logout')->name('admin.logout');
-    Route::get('home', 'Admin\HomeController@index')->name('admin.home');
+	Route::post('logout', 'Admin\LoginController@logout')->name('admin.logout');
+	// Route::get('home', 'Admin\HomeController@index')->name('admin.home');
+
+	Route::get('items_index', 'Admin\ItemController@index')->name('admin.items_index');
+
+	Route::get('items_detail/{id}', 'Admin\ItemController@detail')->name('admin.items_detail');
+
+	Route::get('items_add', 'Admin\ItemController@showAddForm')->name('admin.items_add');
+	Route::post('items_db_add', 'Admin\ItemController@add')->name('admin.items_db_add');
+
+	Route::get('items_edit/{id}', 'Admin\ItemController@showEditForm')->name('admin.items_edit');
+	Route::post('items_db_edit/{id}', 'Admin\ItemController@edit')->name('admin.items_db_edit');
 });
