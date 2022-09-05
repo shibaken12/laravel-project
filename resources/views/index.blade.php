@@ -1,47 +1,62 @@
-<!DOCTYPE html>
-<html lang="ja">
+@extends('layouts.app')
 
-<head>
-<meta charset="utf-8">
-<title>商品一覧</title>
-</head>
+@section('content')
 
-<body>
 
-<table border="2" style="border-collapse: collapse" bordercolor="black">
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>商品一覧</h2>
+                    @if ($session)
+                    <p align="right">
+                        <a href="{{ route('cart.index') }}">カート一覧へ</a>
+                    </p>
+                    @endif
+                </div>
 
-<tr>
-<th>商品名</th>
-<th>値段</th>
-<th>在庫有無</th>
-</tr>
+                <div class="panel-body">
 
-@foreach ($item as $var)
-<tr>
+                    <table class="table table-striped">
 
-<td>
-<a href="{{ route('item.detail', $var->id) }}">{{$var->item_name}}</a>
-</td>
+                        <tr>
+                            <th>商品名</th>
+                            <th>値段</th>
+                            <th>在庫有無</th>
+                        </tr>
 
-<td>
-{{$var->price}}
-</td>
+                        @foreach ($item as $var)
+                        <tr>
 
-@if ($var->stock == 0)
-<td>
-{{'在庫なし'}}
-</td>
+                            <td>
+                                <a href="{{ route('item.detail', $var->id) }}">{{$var->item_name}}</a>
+                            </td>
 
-@else
-<td>
-{{'在庫あり'}}
-</td>
-@endif
+                            <td>
+                                {{$var->price}}
+                            </td>
 
-</tr>
-@endforeach
+                            @if ($var->stock == 0)
+                            <td>
+                                {{'在庫なし'}}
+                            </td>
 
-</table>
+                            @else
+                            <td>
+                                {{'在庫あり'}}
+                            </td>
+                            @endif
 
-</body>
+                        </tr>
+                        @endforeach
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
 </html>

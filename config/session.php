@@ -1,6 +1,6 @@
 <?php
 
-return [
+$sessConf = [
 
     /*
     |--------------------------------------------------------------------------
@@ -124,7 +124,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        str_slug(env('APP_NAME', 'laravel'), '_').'_session'
+        str_slug(env('APP_NAME', 'laravel'), '_') . '_session'
     ),
 
     /*
@@ -195,3 +195,15 @@ return [
     'same_site' => null,
 
 ];
+
+$uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+
+// 管理者側用セッション
+if (strstr($uri, '/admin/') !== false || $uri === '/admin/login') {
+    $sessConf['cookie'] = env(
+        'SESSION_COOKIE_ADMIN',
+        str_slug(env('APP_NAME', 'laravel'), '_') . '_admin_session'
+    );
+}
+
+return $sessConf;

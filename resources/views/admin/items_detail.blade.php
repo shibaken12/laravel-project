@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_admin')
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -18,6 +18,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h2>商品詳細</h2>
+                        <p align="right"><a href="{{ route('admin.items_edit', $detail->id) }}">編集する</a></p>
                     </div>
 
                     <div class="panel-body">
@@ -28,7 +29,6 @@
                                 <th>商品説明</th>
                                 <th>値段</th>
                                 <th>在庫の有無</th>
-                                <th>カートに追加</th>
                             </tr>
 
                             <tr>
@@ -56,31 +56,11 @@
                                 </td>
                                 @endif
 
-                                @if ($detail->stock !==0 && !$session)
-                                <td>
-                                    {{'ログインしてください'}}
-                                </td>
-
-                                @elseif ($detail->stock ==0)
-                                <td>
-                                    {{'在庫なし'}}
-                                </td>
-
-                                @else
-                                <td>
-                                    <form method="post" action="{{ route('cart.add') }}">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="item_id" value="{{ $detail->id }}">
-                                        <input type="submit" value="カートに追加する">
-                                    </form>
-                                </td>
-                                @endif
-
                             </tr>
 
                         </table>
                     </div>
-                    <a href="{{ route('item.index') }}">商品一覧に戻る</a>
+                    <a href="{{ route('admin.items_index') }}">商品一覧に戻る</a>
                 </div>
             </div>
         </div>
