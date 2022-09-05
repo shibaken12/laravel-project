@@ -28,7 +28,7 @@ class RedirectIfAuthenticated
                 break;
             case 'user':
                 if (Auth::guard($guard)->check()) {
-                    return redirect('/home');
+                    return redirect()->route('user.index');
                 }
                 break;
         }

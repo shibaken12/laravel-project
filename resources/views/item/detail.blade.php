@@ -1,51 +1,91 @@
+@extends('layouts.app')
 
 <!DOCTYPE html>
 <html lang="ja">
 
 <head>
-<meta charset="utf-8">
-<title>商品詳細画面</title>
+    <meta charset="utf-8">
+    <title>商品詳細画面</title>
 </head>
 
 <body>
 
-<table border="2" style="border-collapse: collapse" bordercolor="black">
 
-<tr>
-<th>商品名</th>
-<th>商品説明</th>
-<th>値段</th>
-<th>在庫の有無</th>
-</tr>
+    @section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2>商品詳細</h2>
+                    </div>
 
-<tr>
+                    <div class="panel-body">
+                        <table class="table table-striped">
 
-<td>
-{{$detail->item_name}}
-</td>
+                            <tr>
+                                <th>商品名</th>
+                                <th>商品説明</th>
+                                <th>値段</th>
+                                <th>在庫の有無</th>
+                                <th>カートに追加</th>
+                            </tr>
 
-<td>
-{{$detail->explanation}}
-</td>
+                            <tr>
 
-<td>
-{{$detail->price}}
-</td>
+                                <td>
+                                    {{$detail->item_name}}
+                                </td>
 
-@if ($detail->stock == 0)
-<td>
-{{'在庫なし'}}
-</td>
+                                <td>
+                                    {{$detail->explanation}}
+                                </td>
 
-@else
-<td>
-{{'在庫あり'}}
-</td>
-@endif
+                                <td>
+                                    {{$detail->price}}
+                                </td>
 
-</tr>
+                                @if ($detail->stock == 0)
+                                <td>
+                                    {{'在庫なし'}}
+                                </td>
 
-</table>
+                                @else
+                                <td>
+                                    {{'在庫あり'}}
+                                </td>
+                                @endif
 
+                                @if ($detail->stock !==0 && !$session)
+                                <td>
+                                    {{'ログインしてください'}}
+                                </td>
+
+                                @elseif ($detail->stock ==0)
+                                <td>
+                                    {{'在庫なし'}}
+                                </td>
+
+                                @else
+                                <td>
+                                    <form method="post" action="{{ route('cart.add') }}">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="item_id" value="{{ $detail->id }}">
+                                        <input type="submit" value="カートに追加する">
+                                    </form>
+                                </td>
+                                @endif
+
+                            </tr>
+
+                        </table>
+                    </div>
+                    <a href="{{ route('item.index') }}">商品一覧に戻る</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endsection
 </body>
+
 </html>

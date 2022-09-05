@@ -9,6 +9,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2>商品一覧</h2>
+                    @if ($session)
+                    <p align="right">
+                        <a href="{{ route('cart.index') }}">カート一覧へ</a>
+                    </p>
+                    @endif
                 </div>
 
                 <div class="panel-body">
