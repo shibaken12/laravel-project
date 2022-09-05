@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_admin')
 
 @section('content')
 <div class="container">
@@ -14,7 +14,7 @@
                     </div>
                     @endif
 
-                    ログインに成功しました！
+                    管理者としてログインしました！
                 </div>
             </div>
         </div>
