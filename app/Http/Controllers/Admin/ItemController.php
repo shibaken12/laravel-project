@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Item;
 
+use InterventionImage;
+
 class ItemController extends Controller
 {
 	public function index()
@@ -44,19 +46,35 @@ class ItemController extends Controller
 			'explanation' => 'required',
 			'price' => 'required | integer | between:0,100000000',
 			'stock' => 'required | integer | between:0,10000000',
+			'image' => 'nullable | file | mimes:jpeg,png,jpg',
+
 		]);
 
+		if ($request->file('image') !== null) {
+
+			// ディレクトリ名
+			$dir = 'sample';
+
+			// アップロードされたファイル名を取得
+			$file_name = $request->file('image')->getClientOriginalName();
+
+			// 取得したファイル名で保存
+			$request->file('image')->storeAs('public/' . $dir, $file_name);
+
+			$path = 'storage/' . $dir . '/' . $file_name;
+		} else {
+			$path = null;
+		}
 
 		$item->create([
 			'item_name' => $request->item_name,
 			'explanation' => $request->explanation,
 			'price' => $request->price,
 			'stock' => $request->stock,
+			'image' => $path,
 		]);
 
-		session()->flash('flash_message', '商品の追加が完了しました');
-
-		return redirect('admin/items_index');
+		return redirect('admin/items_index')->with('successMessage', '商品の追加が完了しました');
 	}
 
 	//商品編集フォームページの表示
@@ -74,16 +92,48 @@ class ItemController extends Controller
 			'item_name' => 'required',
 			'explanation' => 'required',
 			'stock' => 'required | integer | between:0,10000000',
+			'image' => 'nullable | file | mimes:jpeg,png,jpg',
 		]);
+
+		$item = Item::find($id);
+
+		if ($request->file('image') !== null) {
+
+			// ディレクトリ名
+			$dir = 'sample';
+
+			// アップロードされたファイル名を取得
+			$file_name = $request->file('image')->getClientOriginalName();
+
+			$resize_image = InterventionImage::make($request->file('image'));
+
+			$resize_image->resize(
+				150,
+				150,
+				function ($constraint) {
+					$constraint->aspectRatio();
+				}
+			);
+
+			// 取得したファイル名で保存
+			$resize_image->save(storage_path('app/public/' . $dir . '/' . $file_name));
+
+			$path = 'storage/' . $dir . '/' . $file_name;
+		} else {
+			if ($item->image !== null) {
+				$path = $item->image;
+			} else {
+				$path = null;
+			}
+		}
 
 		Item::where('id', '=', $id)->update([
 			'item_name' => $request->item_name,
 			'explanation' => $request->explanation,
 			'stock' => $request->stock,
+			'image' => $path
 		]);
 
-		session()->flash('flash_message', '商品の編集が完了しました');
-
-		return redirect('admin/items_index');
+		return redirect('admin/items_index')->with('successMessage', '商品の編集が完了しました');
 	}
 }

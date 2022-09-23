@@ -34,8 +34,8 @@ return [
     'date'                 => 'The :attribute is not a valid date.',
     'date_format'          => 'The :attribute does not match the format :format.',
     'different'            => 'The :attribute and :other must be different.',
-    'digits'               => 'The :attribute must be :digits digits.',
-    'digits_between'       => 'The :attribute must be between :min and :max digits.',
+    'digits'               => ':attribute は :digits 桁で記入してください ',
+    'digits_between'       => ':attribute は :min から :max 桁で記入してください',
     'dimensions'           => 'The :attribute has invalid image dimensions.',
     'distinct'             => 'The :attribute field has a duplicate value.',
     'email'                => 'The :attribute must be a valid email address.',
@@ -56,7 +56,7 @@ return [
         'string'  => 'The :attribute may not be greater than :max characters.',
         'array'   => 'The :attribute may not have more than :max items.',
     ],
-    'mimes'                => 'The :attribute must be a file of type: :values.',
+    'mimes'                => ':attribute は以下の拡張子でアップロードしてください(:values)',
     'mimetypes'            => 'The :attribute must be a file of type: :values.',
     'min'                  => [
         'numeric' => 'The :attribute must be at least :min.',
@@ -84,7 +84,8 @@ return [
     ],
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => 'The :attribute has already been taken.',
+    // 'unique'               => 'The :attribute has already been taken.',
+    'unique'               => 'この住所は既に登録されています',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
 
@@ -119,8 +120,15 @@ return [
     'attributes' => [
         'item_name' => '商品名',
         'explanation' => '商品説明',
+        'image' => '商品画像',
         'price' => '値段',
-        'stock' => '在庫数'
+        'stock' => '在庫数',
+        'name' => '氏名',
+        'postcode' => '郵便番号',
+        'ken_name' => '都道府県',
+        'city_name' => '市区町村',
+        'town_memo' => '番地等',
+        'phone_num' => '電話番号',
     ],
 
 ];

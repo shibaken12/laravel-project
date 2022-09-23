@@ -83,7 +83,6 @@ class Cart extends Model
                 DB::commit();
                 return true;
             } catch (\Exception $e) {
-                $e->getMessage();
                 DB::rollback();
             }
         }

@@ -17,8 +17,8 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2>商品詳細</h2>
-                        <p align="right"><a href="{{ route('admin.items_edit', $detail->id) }}">編集する</a></p>
+                        <h4>商品詳細</h4>
+                        <p align="right"><a href="{{ route('admin.items_edit', $detail->id) }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">編集する</a></p>
                     </div>
 
                     <div class="panel-body">
@@ -59,6 +59,9 @@
                             </tr>
 
                         </table>
+                        <td>
+                            <img src="{{ asset($detail->image) }}">
+                        </td>
                     </div>
                     <a href="{{ route('admin.items_index') }}">商品一覧に戻る</a>
                 </div>

@@ -42,7 +42,7 @@
                                 </td>
 
                                 <td>
-                                    {{$detail->price}}
+                                    {{'¥' . number_format($detail->price)}}
                                 </td>
 
                                 @if ($detail->stock == 0)
@@ -71,7 +71,7 @@
                                     <form method="post" action="{{ route('cart.add') }}">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="item_id" value="{{ $detail->id }}">
-                                        <input type="submit" value="カートに追加する">
+                                        <input type="submit" value="カートに追加する" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                     </form>
                                 </td>
                                 @endif
@@ -79,6 +79,9 @@
                             </tr>
 
                         </table>
+                        <td>
+                            <img src="{{ asset($detail->image) }}">
+                        </td>
                     </div>
                     <a href="{{ route('item.index') }}">商品一覧に戻る</a>
                 </div>

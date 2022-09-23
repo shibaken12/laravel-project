@@ -15,9 +15,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         body {
-            background-color: navy;
+            background-color: #FFF8DC;
         }
     </style>
+
+    <!-- 自分で加えたやつ -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-indigo.min.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
 
 <body>
@@ -50,7 +55,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
-                        <li><a href="{{ route('admin.login') }}">Login</a></li>
+                        <li><a href="{{ route('admin.login') }}">ログイン</a></li>
                         @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
@@ -59,9 +64,15 @@
 
                             <ul class="dropdown-menu">
                                 <li>
+                                    <a href="{{ route('admin.items_index')}}">商品一覧</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.user_index')}}">会員一覧</a>
+                                </li>
+                                <li>
                                     <a href="{{ route('admin.logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        Logout
+                                        ログアウト
                                     </a>
 
                                     <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">

@@ -9,7 +9,7 @@ class Item extends Model
     //ホワイトリストとブラックリストは片方しか使えない
     //ホワイトリストの場合
     protected $fillable = [
-        'item_name', 'explanation', 'price', 'stock'
+        'item_name', 'explanation', 'price', 'stock', 'image',
     ];
 
     //ブラックリストで設定する場合

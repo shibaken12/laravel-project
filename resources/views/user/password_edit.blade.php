@@ -1,11 +1,11 @@
-@extends('layouts.app_admin')
+@extends('layouts.app')
 
 <!DOCTYPE html>
 <html lang="ja">
 
 <head>
     <meta charset="utf-8">
-    <title>商品編集画面</title>
+    <title>プロフィール編集画面</title>
 </head>
 
 <body>
@@ -18,44 +18,40 @@
                     <font color="red">{{ $error }}</font></br>
                     @endforeach
                     <div class="panel-heading">
-                        <h3>商品情報を編集してください</h3>
+                        <h4>パスワード再設定</h4>
                     </div>
 
                     <div class="panel-body">
-                        <form action="{{ route('admin.items_db_edit', $item->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('user.password_edit', $user->id) }}" method="post">
                             <!-- laravelでformを使用する場合は{{ csrf_field() }}を使う -->
                             {{ csrf_field() }}
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" name="item_name" value="{{ $item->item_name }}">
-                                <label class="mdl-textfield__label">商品名</label>
+                                <input class="mdl-textfield__input" type="password" name="current_password">
+                                <label class="mdl-textfield__label">現在のパスワード</label>
                             </div>
 
                             <br>
 
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" name="explanation" value="{{ $item->explanation }}">
-                                <label class="mdl-textfield__label">商品説明</label>
+                                <input class="mdl-textfield__input" type="password" name="password">
+                                <label class="mdl-textfield__label">新しいパスワード</label>
                             </div>
 
                             <br>
 
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="number" name="stock" value="{{ $item->stock }}">
-                                <label class="mdl-textfield__label">在庫数</label>
+                                <input class="mdl-textfield__input" type="password" name="password_confirmation">
+                                <label class="mdl-textfield__label">新しいパスワード(確認用)</label>
                             </div>
 
                             <br>
-
-                            <p><strong>商品画像</strong></p>
-                            <input type="file" name="image">
-
+                            <br>
                             <br>
 
-                            <input type="submit" value="商品を編集する" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            <input type="submit" value="編集" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                         </form>
-                        <br>
-                        <br>
-                        <a href="{{ route('admin.items_index') }}">商品一覧に戻る</a>
+                        </br>
+                        <a href="{{ route('user.profile', $user->id) }}">アカウント情報に戻る</a>
                     </div>
                 </div>
             </div>

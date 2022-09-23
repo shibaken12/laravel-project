@@ -1,6 +1,6 @@
 <?php
 
-$authConf = [
+return [
 
 	/*
 	|--------------------------------------------------------------------------
@@ -115,25 +115,25 @@ $authConf = [
 		'users' => [
 			'provider' => 'users',
 			'table' => 'password_resets',
-			'expire' => 60,
+			'expire' => 30,
 		],
 		'admins' => [
 			'provider' => 'admins',
 			'table' => 'password_resets',
-			'expire' => 60,
+			'expire' => 30,
 		],
 	],
 
 ];
 
-$uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-
-// 管理者側の認証ガード設定
-if (strstr($uri, '/admin/') !== false || $uri === '/admin/login') {
-	$authConf['defaults'] = [
-		'guard'     => 'admin',
-		'passwords' => 'admins',
-	];
-}
-
-return $authConf;
+//$uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+//
+//// 管理者側の認証ガード設定
+//if (strstr($uri, '/admin/') !== false || $uri === '/admin/login') {
+//	$authConf['defaults'] = [
+//		'guard'     => 'admin',
+//		'passwords' => 'admins',
+//	];
+//}
+//
+//return $authConf;

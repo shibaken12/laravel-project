@@ -13,8 +13,9 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h2>カート一覧</h2>
-					<p align="right">合計金額 ¥ {{ $total }}</p>
+					<h4>カート一覧</h4>
+					<p align="right"><a href="{{ route('address.index') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">お届け先を選択</a></p>
+					<h6 align="right"><strong>合計金額 ¥ {{ number_format($total) }}</strong></h6>
 				</div>
 
 				<div class="panel-body">
@@ -40,7 +41,7 @@
 							</td>
 
 							<td>
-								{{ $var->item->price }}
+								{{ '¥' . number_format($var->item->price) }}
 							</td>
 
 							<td>
@@ -48,14 +49,14 @@
 							</td>
 
 							<td>
-								{{ $var->item->price * $var->quantity }}
+								{{ '¥' . number_format($var->item->price * $var->quantity) }}
 							</td>
 
 							<td>
 								<form method="post" action="{{ route('cart.remove') }}">
 									{{ csrf_field() }}
 									<input type="hidden" name="cart_id" value="{{ $var->id }}">
-									<input type="submit" value="カートから削除する">
+									<input type="submit" value="カートから削除する" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
 								</form>
 							</td>
 
